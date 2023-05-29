@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  icecast2:
+    build: '.'
+    container_name: icecast2
+    restart: always
+    ports:
+      - 80:8000
+    volumes:
+      - ${CONFIG:-./config}/icecast.xml:/etc/icecast2/icecast.xml
+      - ${STATIC:-./static}:/usr/share/icecast2/web/static

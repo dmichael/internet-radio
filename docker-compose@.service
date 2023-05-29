@@ -1,0 +1,17 @@
+# Create file /etc/systemd/system/docker-compose@.service
+#
+# systemctl start docker-compose@icecast2
+[Unit]
+Description=%i service with docker compose
+PartOf=docker.service
+After=docker.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+WorkingDirectory=/etc/docker/compose/%i
+ExecStart=/usr/local/bin/docker compose up --build -d --remove-orphans
+ExecStop=/usr/local/bin/docker compose down
+
+[Install]
+WantedBy=multi-user.target
